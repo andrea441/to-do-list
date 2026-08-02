@@ -9,13 +9,19 @@
     <div id="sidebar">
       <h2>Projects</h2>
       <hr />
-      <div id="projects">
-        <ul>
-          <li>Default</li>
-          <li>Hola</li>
-        </ul>
-      </div>
+      <ul id="projects">
+        <li>Default</li>
+        <li>Hola</li>
+      </ul>
+      <button type="button" id="open-add-project-modal">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <title>plus</title>
+          <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+        </svg>
+        New Project
+      </button>
     </div>
+
     <div id="main">
       <div id="main-header">
         <h2>Project Title</h2>
@@ -29,5 +35,22 @@
         </div>
       </div>
     </div>
+
+    <dialog id="add-project-modal">
+      <form id="add-project-form">
+        <h2>Create new project</h2>
+        <input
+          type="text"
+          id="project-name"
+          name="project-name"
+          placeholder="Enter name"
+          required
+        />
+        <div id="add-project-modal-btns">
+          <button type="button" id="add-project-cancel-btn">Cancel</button>
+          <button type="submit" id="add-project-accept-btn">Accept</button>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

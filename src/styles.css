@@ -1,9 +1,12 @@
+/* GENERAL */
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 body {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   display: flex;
   width: 100%;
   min-height: 100vh;
@@ -12,11 +15,67 @@ body {
 ul {
   list-style-type: none;
 }
+
+input {
+  font: inherit;
+  background-color: lightgray;
+  border: none;
+  padding: 0.5em;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: inset 0 -4px 0 royalblue;
+}
+
+button {
+  font: inherit;
+  gap: 0.3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  padding: 0.5em 1.5em;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button svg {
+  height: 1.5em;
+}
+
+dialog {
+  margin: auto;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* SIDEBAR */
 #sidebar {
   flex-grow: 1;
   padding: 2em;
 }
 
+/* ADD PROJECT DIALOG */
+#add-project-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em;
+  gap: 0.5em;
+}
+
+#add-project-modal-btns {
+  display: flex;
+  gap: 1em;
+}
+
+/* MAIN CONTENT */
 #main {
   flex-grow: 5;
   border: 1px solid black;
