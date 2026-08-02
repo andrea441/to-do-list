@@ -27,6 +27,16 @@ function addProject(name) {
   saveStorage();
 }
 
-function removeProject(project) {}
+function removeProject(id) {
+  const index = projects.findIndex((project) => project.id === id);
 
-export { getProjects, addProject };
+  if (index !== -1) {
+    projects.splice(index, 1);
+  }
+
+  saveStorage();
+}
+
+loadStorage();
+
+export { getProjects, addProject, removeProject };

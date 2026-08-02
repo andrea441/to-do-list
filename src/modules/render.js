@@ -6,12 +6,16 @@ function renderProjects() {
 
   const projects = getProjects();
 
-  console.log(projects);
-
   for (const project of projects) {
     const projectItem = document.createElement("li");
     projectItem.dataset.id = project.id;
     projectItem.textContent = project.name;
+
+    const projectDelete = document.createElement("button");
+    projectDelete.textContent = "✕";
+    projectDelete.classList.add("delete-project-btn");
+    projectItem.append(projectDelete);
+
     projectsElement.append(projectItem);
   }
 }
