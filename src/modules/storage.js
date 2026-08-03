@@ -3,16 +3,21 @@ import Task from "./task.js";
 
 let projects = [];
 
-// Obtener datos de localStorage
 function loadStorage() {
-  projects = JSON.parse(localStorage.getItem("projects")) || [];
+  const rawData = JSON.parse(localStorage.getItem("projects")) || [];
 
-  // Convert every item in a Project object
+  projects = rawData.map((project) => {
+    const tasks = project.tasks.map(
+      (task) =>
+        new Task(task.title, task.description, task.dueDate, task.priority),
+    );
+    const newProject = new Project(project.name);
+    newProject.tasks = tasks;
 
-  // Convert every task item in a Task object
+    return newProject;
+  });
 }
 
-// Guardar datos en localStorage
 function saveStorage() {
   localStorage.setItem("projects", JSON.stringify(projects));
 }

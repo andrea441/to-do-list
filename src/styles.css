@@ -113,6 +113,10 @@ dialog::backdrop {
   gap: 0.5em;
 }
 
+li.active {
+  background-color: lightgray;
+}
+
 /* ADD PROJECT DIALOG */
 #add-project-form {
   display: flex;

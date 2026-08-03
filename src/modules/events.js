@@ -1,5 +1,5 @@
 import { addProject, removeProject } from "./storage.js";
-import { renderProjects } from "./render.js";
+import { renderProjects, renderTasks } from "./render.js";
 
 const modalAddProject = document.querySelector("#add-project-modal");
 
@@ -24,6 +24,19 @@ function handleDeleteProject(event) {
     removeProject(id);
 
     renderProjects();
+  } else if (
+    event.target.matches("li") &&
+    !event.target.classList.contains("active")
+  ) {
+    const activeElements = document.querySelectorAll(".active");
+    activeElements.forEach((element) => {
+      element.classList.remove("active");
+    });
+
+    event.target.classList.add("active");
+    const id = event.target.dataset.id;
+
+    renderTasks(id);
   }
 }
 
@@ -50,4 +63,6 @@ export default function initEvents() {
 
   // Delete project
   projectsList.addEventListener("click", handleDeleteProject);
+
+  // Add task
 }

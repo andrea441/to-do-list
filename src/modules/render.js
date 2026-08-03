@@ -1,10 +1,10 @@
 import { getProjects } from "./storage.js";
 
+projects = getProjects();
+
 function renderProjects() {
   const projectsElement = document.getElementById("projects");
   projectsElement.replaceChildren();
-
-  const projects = getProjects();
 
   for (const project of projects) {
     const projectItem = document.createElement("li");
@@ -20,7 +20,22 @@ function renderProjects() {
   }
 }
 
-// Render task when you click a project
-function renderTasks() {}
+// Render tasks when you click a project
+function renderTasks(projectId) {
+  const tasksElement = document.getElementById("tasks");
+  tasksElement.replaceChildren();
 
-export { renderProjects };
+  const selectedProject = projects.find((project) => project.id === projectId);
+  const tasks = selectedProject.tasks;
+
+  for (const task of tasks) {
+    const taskElement = document.createElement("div");
+    taskElement.classList.add("task");
+
+    const checkElement = document.createElement("input");
+    checkElement.type = "checkbox";
+    checkElement.id = check;
+  }
+}
+
+export { renderProjects, renderTasks };
