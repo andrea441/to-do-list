@@ -1,15 +1,14 @@
 import Project from "./project.js";
 import Task from "./task.js";
-
-let projects = [];
+import state from "./state.js";
 
 function loadStorage() {
   const rawData = JSON.parse(localStorage.getItem("projects")) || [];
 
-  projects = rawData.map((project) => {
+  state.projects = rawData.map((project) => {
     const tasks = project.tasks.map(
       (task) =>
-        new Task(task.title, task.description, task.dueDate, task.priority),
+        new Task(task.title, task.description, task.dueDate, task._priority),
     );
     const newProject = new Project(project.name);
     newProject.tasks = tasks;
@@ -19,29 +18,7 @@ function loadStorage() {
 }
 
 function saveStorage() {
-  localStorage.setItem("projects", JSON.stringify(projects));
+  localStorage.setItem("projects", JSON.stringify(state.projects));
 }
 
-function getProjects() {
-  return projects;
-}
-
-function addProject(name) {
-  projects.push(new Project(name));
-
-  saveStorage();
-}
-
-function removeProject(id) {
-  const index = projects.findIndex((project) => project.id === id);
-
-  if (index !== -1) {
-    projects.splice(index, 1);
-  }
-
-  saveStorage();
-}
-
-loadStorage();
-
-export { getProjects, addProject, removeProject };
+export { loadStorage, saveStorage };

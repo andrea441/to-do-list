@@ -1,5 +1,5 @@
 export default class Project {
-  constructor(name) {
+  constructor(name, tasks) {
     this.id = crypto.randomUUID();
     this.name = name;
     this.tasks = [];

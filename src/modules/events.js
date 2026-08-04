@@ -1,5 +1,7 @@
-import { addProject, removeProject } from "./storage.js";
+import { saveStorage } from "./storage.js";
 import { renderProjects, renderTasks } from "./render.js";
+import Task from "./task.js";
+import state from "./state.js";
 
 const modalAddProject = document.querySelector("#add-project-modal");
 
@@ -9,7 +11,8 @@ function handleAddProject(event) {
   const projectNameInput = document.querySelector("#project-name");
   const projectName = projectNameInput.value;
 
-  addProject(projectName);
+  state.addProject(projectName);
+  saveStorage();
 
   renderProjects();
 
@@ -21,7 +24,8 @@ function handleDeleteProject(event) {
   if (event.target.matches(".delete-project-btn")) {
     const id = event.target.closest("li").dataset.id;
 
-    removeProject(id);
+    state.removeProject(id);
+    saveStorage();
 
     renderProjects();
   } else if (
@@ -36,8 +40,23 @@ function handleDeleteProject(event) {
     event.target.classList.add("active");
     const id = event.target.dataset.id;
 
-    renderTasks(id);
+    state.selectedProjectId = id;
+    renderTasks();
   }
+}
+
+function handleAddTask(event) {
+  event.preventDefault();
+
+  const taskTitleInput = document.querySelector("#task-title");
+  const taskTitle = taskTitleInput.value;
+
+  const task = new Task(taskTitle, "test", "test", "medium");
+  state.getSelectedProject().addTask(task);
+  saveStorage();
+
+  renderTasks();
+  taskTitleInput.value = "";
 }
 
 export default function initEvents() {
@@ -49,6 +68,7 @@ export default function initEvents() {
   );
   const formAddProject = document.querySelector("#add-project-form");
   const projectsList = document.querySelector("#projects");
+  const formAddTask = document.querySelector("#create-task");
 
   // Add Project Modal
   buttonInvokeAddProjectModal.addEventListener("click", () =>
@@ -65,4 +85,5 @@ export default function initEvents() {
   projectsList.addEventListener("click", handleDeleteProject);
 
   // Add task
+  formAddTask.addEventListener("submit", handleAddTask);
 }

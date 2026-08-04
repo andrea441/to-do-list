@@ -12,7 +12,7 @@ export default class Task {
   set priority(value) {
     if (!Task.PRIORITIES.includes(value)) {
       throw new Error(
-        `Priority has to be one of these: ${PRIORITIES.join(", ")}`,
+        `Priority has to be one of these: ${Task.PRIORITIES.join(", ")}`,
       );
     }
     this._priority = value;

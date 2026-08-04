@@ -21,8 +21,19 @@
 
     <div id="main">
       <div id="main-header">
-        <h2>Project Title</h2>
-        <button type="button">Add Task</button>
+        <h2 id="main-title">Project Title</h2>
+        <hr />
+        <form id="create-task">
+          <input
+            type="text"
+            placeholder="Add a task"
+            id="task-title"
+            required
+          />
+          <div id="create-task-footer">
+            <button type="submit">Add</button>
+          </div>
+        </form>
       </div>
 
       <div id="tasks">
@@ -53,7 +64,10 @@
     </dialog>
 
     <dialog id="add-task-modal">
-      <form id="add-task-form"></form>
+      <form id="add-task-form">
+        <h2>Create New Task</h2>
+        <input type="text" />
+      </form>
     </dialog>
   </body>
 </html>

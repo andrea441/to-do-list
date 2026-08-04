@@ -1,8 +1,8 @@
-import { getProjects } from "./storage.js";
-
-projects = getProjects();
+import state from "./state.js";
 
 function renderProjects() {
+  const projects = state.projects;
+
   const projectsElement = document.getElementById("projects");
   projectsElement.replaceChildren();
 
@@ -21,12 +21,16 @@ function renderProjects() {
 }
 
 // Render tasks when you click a project
-function renderTasks(projectId) {
+function renderTasks() {
   const tasksElement = document.getElementById("tasks");
   tasksElement.replaceChildren();
 
-  const selectedProject = projects.find((project) => project.id === projectId);
+  const selectedProject = state.getSelectedProject();
+
   const tasks = selectedProject.tasks;
+
+  const titleElement = document.getElementById("main-title");
+  titleElement.textContent = selectedProject.name;
 
   for (const task of tasks) {
     const taskElement = document.createElement("div");
@@ -34,7 +38,12 @@ function renderTasks(projectId) {
 
     const checkElement = document.createElement("input");
     checkElement.type = "checkbox";
-    checkElement.id = check;
+
+    const labelELement = document.createElement("label");
+    labelELement.textContent = task.title;
+
+    taskElement.append(checkElement, labelELement);
+    tasksElement.append(taskElement);
   }
 }
 
