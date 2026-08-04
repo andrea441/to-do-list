@@ -15,6 +15,13 @@ function loadStorage() {
 
     return newProject;
   });
+
+  if (state.projects.length === 0) {
+    state.addProject("Default");
+    saveStorage();
+  }
+
+  state.selectedProjectId = state.projects[0].id;
 }
 
 function saveStorage() {
