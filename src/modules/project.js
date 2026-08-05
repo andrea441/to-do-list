@@ -8,4 +8,8 @@ export default class Project {
   addTask(task) {
     this.tasks.push(task);
   }
+
+  findTask(id) {
+    return this.tasks.find((task) => task.id === id);
+  }
 }

@@ -1,12 +1,13 @@
 export default class Task {
   static PRIORITIES = ["low", "medium", "high"];
 
-  constructor(title, description, dueDate, priority) {
+  constructor(title, description, dueDate, priority, completed) {
+    this.id = crypto.randomUUID();
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
-    this.completed = false;
+    this.completed = completed;
   }
 
   set priority(value) {

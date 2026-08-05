@@ -8,7 +8,13 @@ function loadStorage() {
   state.projects = rawData.map((project) => {
     const tasks = project.tasks.map(
       (task) =>
-        new Task(task.title, task.description, task.dueDate, task._priority),
+        new Task(
+          task.title,
+          task.description,
+          task.dueDate,
+          task._priority,
+          task.completed,
+        ),
     );
     const newProject = new Project(project.name);
     newProject.tasks = tasks;

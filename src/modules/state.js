@@ -14,6 +14,14 @@ const state = {
     if (index !== -1) {
       this.projects.splice(index, 1);
     }
+
+    if (this.selectedProjectId === id) {
+      if (this.projects.length > 0) {
+        this.selectedProjectId = this.projects[0].id;
+      } else {
+        this.selectedProjectId = null;
+      }
+    }
   },
 
   getSelectedProject() {

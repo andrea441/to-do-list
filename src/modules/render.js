@@ -11,6 +11,10 @@ function renderProjects() {
     projectItem.dataset.id = project.id;
     projectItem.textContent = project.name;
 
+    if (project.id === state.selectedProjectId) {
+      projectItem.classList.add("active");
+    }
+
     const projectDelete = document.createElement("button");
     projectDelete.textContent = "✕";
     projectDelete.classList.add("delete-project-btn");
@@ -27,7 +31,13 @@ function renderTasks() {
 
   const selectedProject = state.getSelectedProject();
 
-  const tasks = selectedProject.tasks;
+  if (!selectedProject) {
+    return;
+  }
+
+  const tasks = [...selectedProject.tasks].sort((a, b) => {
+    return a.completed - b.completed;
+  });
 
   const titleElement = document.getElementById("main-title");
   titleElement.textContent = selectedProject.name;
@@ -35,12 +45,18 @@ function renderTasks() {
   for (const task of tasks) {
     const taskElement = document.createElement("div");
     taskElement.classList.add("task");
+    taskElement.dataset.id = task.id;
 
     const checkElement = document.createElement("input");
     checkElement.type = "checkbox";
 
     const labelELement = document.createElement("label");
     labelELement.textContent = task.title;
+
+    if (task.completed) {
+      taskElement.classList.add("completed");
+      checkElement.checked = true;
+    }
 
     taskElement.append(checkElement, labelELement);
     tasksElement.append(taskElement);

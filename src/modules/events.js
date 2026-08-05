@@ -15,6 +15,7 @@ function handleAddProject(event) {
   saveStorage();
 
   renderProjects();
+  renderTasks();
 
   projectNameInput.value = "";
   modalAddProject.close();
@@ -25,22 +26,15 @@ function handleDeleteProject(event) {
     const id = event.target.closest("li").dataset.id;
 
     state.removeProject(id);
+
     saveStorage();
+    renderProjects();
+    renderTasks();
+  } else if (event.target.matches("li")) {
+    const id = event.target.dataset.id;
+    state.selectedProjectId = id;
 
     renderProjects();
-  } else if (
-    event.target.matches("li") &&
-    !event.target.classList.contains("active")
-  ) {
-    const activeElements = document.querySelectorAll(".active");
-    activeElements.forEach((element) => {
-      element.classList.remove("active");
-    });
-
-    event.target.classList.add("active");
-    const id = event.target.dataset.id;
-
-    state.selectedProjectId = id;
     renderTasks();
   }
 }
@@ -51,12 +45,28 @@ function handleAddTask(event) {
   const taskTitleInput = document.querySelector("#task-title");
   const taskTitle = taskTitleInput.value;
 
-  const task = new Task(taskTitle, "test", "test", "medium");
+  const task = new Task(taskTitle, "test", "test", "medium", false);
   state.getSelectedProject().addTask(task);
   saveStorage();
 
   renderTasks();
   taskTitleInput.value = "";
+}
+
+function handleCheckTask(event) {
+  if (event.target.type === "checkbox") {
+    const taskElement = event.target.closest(".task");
+    const taskId = taskElement.dataset.id;
+
+    const selectedProject = state.getSelectedProject();
+    const selectedTask = selectedProject.findTask(taskId);
+    selectedTask.toggleCompleted();
+
+    console.log(state.projects[0]);
+
+    saveStorage();
+    renderTasks();
+  }
 }
 
 export default function initEvents() {
@@ -69,6 +79,7 @@ export default function initEvents() {
   const formAddProject = document.querySelector("#add-project-form");
   const projectsList = document.querySelector("#projects");
   const formAddTask = document.querySelector("#create-task");
+  const tasksElement = document.querySelector("#tasks");
 
   // Add Project Modal
   buttonInvokeAddProjectModal.addEventListener("click", () =>
@@ -86,4 +97,7 @@ export default function initEvents() {
 
   // Add task
   formAddTask.addEventListener("submit", handleAddTask);
+
+  // Check task as completed
+  tasksElement.addEventListener("change", handleCheckTask);
 }
