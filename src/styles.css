@@ -17,6 +17,22 @@
   font-style: normal;
 }
 
+/* GLOBAL VARIABLES */
+:root {
+  --bg: #111111;
+  --surface: #1a1a1a;
+  --surface-hover: #242424;
+  --border: #2d2d2d;
+
+  --text: #e5e5e5;
+  --text-muted: #888888;
+
+  --accent: #8b5cf6;
+  --accent-hover: #a78bfa;
+
+  --danger: #ef4444;
+}
+
 /* GENERAL */
 * {
   padding: 0;
@@ -29,6 +45,8 @@ body {
   display: flex;
   width: 100%;
   min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 h1,
@@ -56,7 +74,7 @@ li button {
 }
 
 li:hover {
-  background-color: lightgray;
+  background-color: var(--surface-hover);
 }
 
 input {
@@ -69,7 +87,7 @@ input {
 
 input:focus {
   outline: none;
-  box-shadow: inset 0 -4px 0 royalblue;
+  box-shadow: inset 0 -4px 0 --accent;
 }
 
 input[type="checkbox"] {
@@ -118,6 +136,12 @@ button {
   border-radius: 999px;
   cursor: pointer;
   font-weight: bold;
+  background-color: var(--accent);
+  color: inherit;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
 }
 
 button svg {
@@ -139,6 +163,7 @@ dialog::backdrop {
   display: flex;
   flex-direction: column;
   gap: 1em;
+  background-color: var(--surface);
 }
 
 #projects {
@@ -148,7 +173,7 @@ dialog::backdrop {
 }
 
 li.active {
-  background-color: lightgray;
+  background-color: var(--surface-hover);
 }
 
 /* ADD PROJECT DIALOG */
@@ -168,7 +193,6 @@ li.active {
 /* MAIN CONTENT */
 #main {
   flex: 3;
-  border: 1px solid black;
   padding: 2em;
 }
 
@@ -182,14 +206,15 @@ li.active {
   display: flex;
   flex-direction: column;
   border-radius: 9px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   overflow: hidden;
+  background-color: var(--surface);
 }
 
 #create-task input {
-  background: none;
+  background-color: transparent;
   border: none;
   padding: 1em;
+  color: var(--text);
 }
 
 #create-task input:focus {
@@ -198,7 +223,7 @@ li.active {
 }
 
 #create-task-footer {
-  background-color: lightgray;
+  background-color: var(--border);
   display: flex;
   justify-content: flex-end;
   padding: 0.5em 1em;
@@ -206,8 +231,6 @@ li.active {
 
 #create-task-footer button {
   border-radius: 5px;
-  background-color: white;
-  border: 1px solid gray;
 }
 
 #tasks {
@@ -223,6 +246,10 @@ li.active {
   display: flex;
   gap: 1em;
   justify-content: space-between;
+}
+
+.task:hover {
+  background-color: var(--surface-hover);
 }
 
 .task label {
