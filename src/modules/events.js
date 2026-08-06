@@ -57,16 +57,28 @@ function handleCheckTask(event) {
   if (event.target.type === "checkbox") {
     const taskElement = event.target.closest(".task");
     const taskId = taskElement.dataset.id;
-
     const selectedProject = state.getSelectedProject();
     const selectedTask = selectedProject.findTask(taskId);
     selectedTask.toggleCompleted();
 
-    console.log(state.projects[0]);
-
     saveStorage();
     renderTasks();
   }
+}
+
+function handleTaskClick(event) {
+  const deleteButton = event.target.closest(".delete-task");
+
+  if (!deleteButton) return;
+
+  const taskElement = event.target.closest(".task");
+  const taskId = taskElement.dataset.id;
+
+  const selectedProject = state.getSelectedProject();
+  selectedProject.removeTask(taskId);
+
+  saveStorage();
+  renderTasks();
 }
 
 export default function initEvents() {
@@ -100,4 +112,5 @@ export default function initEvents() {
 
   // Check task as completed
   tasksElement.addEventListener("change", handleCheckTask);
+  tasksElement.addEventListener("click", handleTaskClick);
 }

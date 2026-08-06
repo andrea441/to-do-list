@@ -220,11 +220,9 @@ li.active {
   padding: 0.5em;
   border: 2px solid lightgray;
   border-radius: 10px;
-  display: grid;
-  grid-template-columns: auto 5fr;
-  align-items: center;
-  justify-content: center;
+  display: flex;
   gap: 1em;
+  justify-content: space-between;
 }
 
 .task label {
@@ -235,4 +233,11 @@ li.active {
 .completed {
   text-decoration: line-through;
   color: gray;
+}
+
+.check-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
 }

@@ -47,18 +47,35 @@ function renderTasks() {
     taskElement.classList.add("task");
     taskElement.dataset.id = task.id;
 
+    const checkSection = document.createElement("div");
+    checkSection.classList.add("check-section");
+
     const checkElement = document.createElement("input");
     checkElement.type = "checkbox";
 
     const labelELement = document.createElement("label");
     labelELement.textContent = task.title;
 
+    // Add delete control
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-task");
+
+    deleteButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     width="20"
+     height="20"
+     fill="currentColor">
+  <path d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" />
+</svg>`;
+
     if (task.completed) {
       taskElement.classList.add("completed");
       checkElement.checked = true;
     }
 
-    taskElement.append(checkElement, labelELement);
+    checkSection.append(checkElement, labelELement);
+
+    taskElement.append(checkSection, deleteButton);
     tasksElement.append(taskElement);
   }
 }
