@@ -77,14 +77,6 @@ li:hover {
   background-color: var(--surface-hover);
 }
 
-input {
-  font: inherit;
-  background-color: lightgray;
-  border: none;
-  padding: 0.5em;
-  border-radius: 5px;
-}
-
 input:focus {
   outline: none;
   box-shadow: inset 0 -4px 0 --accent;
@@ -124,6 +116,17 @@ input[type="checkbox"]:focus {
   box-shadow: none;
 }
 
+input,
+select,
+input[type="date"] {
+  font: inherit;
+  background-color: var(--surface-hover);
+  color: var(--text);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em;
+}
+
 button {
   font: inherit;
   gap: 0.3em;
@@ -146,10 +149,14 @@ button:hover {
 
 button svg {
   height: 1.5em;
+  color: var(--text);
 }
 
 dialog {
   margin: auto;
+  background-color: var(--bg);
+  color: var(--text);
+  padding: 2em;
 }
 
 dialog::backdrop {
@@ -185,7 +192,7 @@ li.active {
   gap: 0.5em;
 }
 
-#add-project-modal-btns {
+.modal-btns {
   display: flex;
   gap: 1em;
 }
@@ -267,4 +274,31 @@ li.active {
   justify-content: center;
   align-items: center;
   gap: 1em;
+}
+
+.task-buttons {
+  display: flex;
+  gap: 1em;
+}
+
+/* ADD TASK MODAL */
+#edit-task-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+#name-field,
+#description-field {
+  grid-column: span 2;
+}
+
+#date-field,
+#priority-field {
+  grid-column: span 1;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.2em;
 }

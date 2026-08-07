@@ -31,6 +31,8 @@
             required
           />
           <div id="create-task-footer">
+            <label for="due-date">Due Date:</label>
+            <input type="date" name="due-date" id="task-due-date" />
             <button type="submit">Add</button>
           </div>
         </form>
@@ -53,17 +55,41 @@
           spellcheck="false"
           required
         />
-        <div id="add-project-modal-btns">
+        <div class="modal-btns">
           <button type="button" id="add-project-cancel-btn">Cancel</button>
           <button type="submit" id="add-project-accept-btn">Accept</button>
         </div>
       </form>
     </dialog>
 
-    <dialog id="add-task-modal">
-      <form id="add-task-form">
-        <h2>Create New Task</h2>
-        <input type="text" />
+    <dialog id="edit-task-modal">
+      <h2>Edit Task</h2>
+      <form id="edit-task-form">
+        <div class="form-field" id="name-field">
+          <label for="task-name">Name</label>
+          <input type="text" id="task-name" name="task-name" required />
+        </div>
+        <div class="form-field" id="description-field">
+          <label for="task-descripcion">Description</label>
+          <input
+            type="text"
+            id="task-description"
+            name="task-descripcion"
+            required
+          />
+        </div>
+        <div class="form-field" id="due-date-field">
+          <label for="task-date">Due Date</label>
+          <input type="date" id="task-date" name="task-date" required />
+        </div>
+        <div class="form-field" id="priority-field">
+          <label for="task-priority">Priority</label>
+          <select name="task-priority" id="task-priority"></select>
+        </div>
+        <div class="modal-btns">
+          <button type="button" id="edit-task-cancel-btn">Cancel</button>
+          <button type="submit" id="edit-task-accept-btn">Accept</button>
+        </div>
       </form>
     </dialog>
   </body>

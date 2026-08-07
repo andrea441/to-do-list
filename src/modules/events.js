@@ -4,6 +4,7 @@ import Task from "./task.js";
 import state from "./state.js";
 
 const modalAddProject = document.querySelector("#add-project-modal");
+const modalEditTask = document.querySelector("#edit-task-modal");
 
 function handleAddProject(event) {
   event.preventDefault();
@@ -67,19 +68,33 @@ function handleCheckTask(event) {
 }
 
 function handleTaskClick(event) {
-  const deleteButton = event.target.closest(".delete-task");
-
-  if (!deleteButton) return;
-
   const taskElement = event.target.closest(".task");
+  if (!taskElement) return;
+
   const taskId = taskElement.dataset.id;
-
   const selectedProject = state.getSelectedProject();
-  selectedProject.removeTask(taskId);
 
-  saveStorage();
-  renderTasks();
+  if (event.target.closest(".delete-task")) {
+    selectedProject.removeTask(taskId);
+    saveStorage();
+    renderTasks();
+  }
+
+  if (event.target.closest(".edit-task")) {
+    const editModal = document.querySelector("#edit-task-modal");
+
+    const selectedTask = selectedProject.findTask(taskId);
+
+    document.querySelector("#task-name").value = selectedTask.title;
+    document.querySelector("#task-description").value =
+      selectedTask.description;
+    document.querySelector("#task-date").value = selectedTask.date;
+    document.querySelector("#task-priority").value = selectedTask.priority;
+    editModal.showModal();
+  }
 }
+
+function handleEditTask() {}
 
 export default function initEvents() {
   const buttonInvokeAddProjectModal = document.querySelector(
@@ -88,21 +103,26 @@ export default function initEvents() {
   const buttonCancelAddProject = document.querySelector(
     "#add-project-cancel-btn",
   );
+
+  const buttonCancelEditTask = document.querySelector("#edit-task-cancel-btn");
+
   const formAddProject = document.querySelector("#add-project-form");
   const projectsList = document.querySelector("#projects");
-  const formAddTask = document.querySelector("#create-task");
+  const formEditTask = document.querySelector("#edit-task-form");
   const tasksElement = document.querySelector("#tasks");
 
   // Add Project Modal
   buttonInvokeAddProjectModal.addEventListener("click", () =>
     modalAddProject.showModal(),
   );
-
   buttonCancelAddProject.addEventListener("click", () =>
     modalAddProject.close(),
   );
-
   formAddProject.addEventListener("submit", handleAddProject);
+
+  // Edit Task Modal
+  buttonCancelEditTask.addEventListener("click", () => modalEditTask.close());
+  formEditTask.addEventListener("submit", handleEditTask);
 
   // Delete project
   projectsList.addEventListener("click", handleDeleteProject);
