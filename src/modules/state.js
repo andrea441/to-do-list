@@ -3,6 +3,7 @@ import Project from "./project.js";
 const state = {
   projects: [],
   selectedProjectId: null,
+  editingTaskId: null,
 
   addProject(name) {
     this.projects.push(new Project(name));

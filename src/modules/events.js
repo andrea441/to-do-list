@@ -90,11 +90,28 @@ function handleTaskClick(event) {
       selectedTask.description;
     document.querySelector("#task-date").value = selectedTask.date;
     document.querySelector("#task-priority").value = selectedTask.priority;
+
+    state.editingTaskId = taskId;
     editModal.showModal();
   }
 }
 
-function handleEditTask() {}
+function handleEditTask(event) {
+  event.preventDefault();
+  const selectedProject = state.getSelectedProject();
+  const currentTask = selectedProject.findTask(state.editingTaskId);
+
+  currentTask.title = document.querySelector("#task-name").value;
+  currentTask.description = document.querySelector("#task-description").value;
+  currentTask.date = document.querySelector("#task-date").value;
+  currentTask.priority = document.querySelector("#task-priority").value;
+
+  // TODO: Show an alert of correct saving
+
+  saveStorage();
+  renderTasks();
+  modalEditTask.close();
+}
 
 export default function initEvents() {
   const buttonInvokeAddProjectModal = document.querySelector(
@@ -107,6 +124,7 @@ export default function initEvents() {
   const buttonCancelEditTask = document.querySelector("#edit-task-cancel-btn");
 
   const formAddProject = document.querySelector("#add-project-form");
+  const formAddTask = document.querySelector("#create-task");
   const projectsList = document.querySelector("#projects");
   const formEditTask = document.querySelector("#edit-task-form");
   const tasksElement = document.querySelector("#tasks");

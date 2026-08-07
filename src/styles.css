@@ -281,16 +281,18 @@ li.active {
   gap: 1em;
 }
 
-/* ADD TASK MODAL */
+/* EDIT TASK MODAL */
 #edit-task-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1em;
+  min-width: 320px;
 }
 
 #name-field,
-#description-field {
-  grid-column: span 2;
+#description-field,
+#edit-task-form .modal-btns {
+  grid-column: 1 / -1;
 }
 
 #date-field,
@@ -301,4 +303,8 @@ li.active {
 .form-field {
   display: grid;
   gap: 0.2em;
+}
+
+#edit-task-form .modal-btns {
+  justify-content: center;
 }
