@@ -75,6 +75,7 @@ li button {
 
 li:hover {
   background-color: var(--surface-hover);
+  cursor: pointer;
 }
 
 input:focus {

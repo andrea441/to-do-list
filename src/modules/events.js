@@ -2,6 +2,7 @@ import { saveStorage } from "./storage.js";
 import { renderProjects, renderTasks } from "./render.js";
 import Task from "./task.js";
 import state from "./state.js";
+import { format } from "date-fns";
 
 const modalAddProject = document.querySelector("#add-project-modal");
 const modalEditTask = document.querySelector("#edit-task-modal");
@@ -45,8 +46,17 @@ function handleAddTask(event) {
 
   const taskTitleInput = document.querySelector("#task-title");
   const taskTitle = taskTitleInput.value;
+  const taskDateInput = document.querySelector("#task-due-date");
+  const [year, month, day] = taskDateInput.value.split("-");
 
-  const task = new Task(taskTitle, "test", "test", "medium", false);
+  const task = new Task(
+    taskTitle,
+    "",
+    format(new Date(year, month - 1, day), "yyyy-MM-dd"),
+    "low",
+    false,
+  );
+
   state.getSelectedProject().addTask(task);
   saveStorage();
 
@@ -88,7 +98,7 @@ function handleTaskClick(event) {
     document.querySelector("#task-name").value = selectedTask.title;
     document.querySelector("#task-description").value =
       selectedTask.description;
-    document.querySelector("#task-date").value = selectedTask.date;
+    document.querySelector("#task-date").value = selectedTask.dueDate;
     document.querySelector("#task-priority").value = selectedTask.priority;
 
     state.editingTaskId = taskId;
@@ -107,9 +117,9 @@ function handleEditTask(event) {
   currentTask.priority = document.querySelector("#task-priority").value;
 
   // TODO: Show an alert of correct saving
-
   saveStorage();
   renderTasks();
+
   modalEditTask.close();
 }
 
